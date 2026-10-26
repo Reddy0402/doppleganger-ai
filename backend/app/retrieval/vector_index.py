@@ -2,7 +2,7 @@ import os
 import json
 import numpy as np
 from typing import List, Dict, Any, Optional
-from backend.app.retrieval.similarity import (
+from app.retrieval.similarity import (
     batch_cosine_similarity,
     calibrate_resemblance_score,
     compute_subfeature_breakdown

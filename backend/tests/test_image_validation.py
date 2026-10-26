@@ -1,7 +1,7 @@
 import io
 import pytest
 from PIL import Image
-from backend.app.core.security import validate_image_file, load_and_preprocess_image
+from app.core.security import validate_image_file, load_and_preprocess_image
 
 def test_empty_file_rejected():
     valid, msg, mime = validate_image_file(b"")

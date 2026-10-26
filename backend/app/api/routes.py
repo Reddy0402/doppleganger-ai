@@ -6,16 +6,16 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
-from backend.app.core.config import settings
-from backend.app.core.security import ephemeral_manager
-from backend.app.database.db import get_db
-from backend.app.database.models import GalleryParticipant, GalleryImage
-from backend.app.vision.adapter import vision_adapter
-from backend.app.retrieval.vector_index import gallery_index
-from backend.app.services.match_service import process_match_request, init_gallery_index
-from backend.app.schemas.matches import MatchResponse
-from backend.app.schemas.gallery import GalleryListResponse, ParticipantDetail, GalleryImageItem
-from backend.app.schemas.evaluation import EvaluationSummaryResponse
+from app.core.config import settings
+from app.core.security import ephemeral_manager
+from app.database.db import get_db
+from app.database.models import GalleryParticipant, GalleryImage
+from app.vision.adapter import vision_adapter
+from app.retrieval.vector_index import gallery_index
+from app.services.match_service import process_match_request, init_gallery_index
+from app.schemas.matches import MatchResponse
+from app.schemas.gallery import GalleryListResponse, ParticipantDetail, GalleryImageItem
+from app.schemas.evaluation import EvaluationSummaryResponse
 
 router = APIRouter()
 
@@ -83,7 +83,7 @@ def reindex_gallery(db: Session = Depends(get_db)):
     """
     Rebuild the gallery vector index and synchronize database records.
     """
-    from backend.scripts.ingest_gallery import ingest_gallery
+    from scripts.ingest_gallery import ingest_gallery
     success = ingest_gallery()
     if not success:
         raise HTTPException(status_code=500, detail="Failed to reindex gallery.")

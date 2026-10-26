@@ -1,6 +1,6 @@
 import random
 from typing import Optional
-from backend.app.core.config import settings
+from app.core.config import settings
 
 LOCAL_CREATIVE_CAPTIONS = [
     "Your reflection in a parallel dimension! Notice the striking harmony in orbital bone structure.",

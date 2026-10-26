@@ -4,12 +4,12 @@ import pytest
 import numpy as np
 from fastapi.testclient import TestClient
 
-# Ensure root directory is on sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+# Ensure backend directory is on sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from backend.app.main import app
-from backend.app.database.db import init_db
-from backend.app.services.match_service import init_gallery_index
+from app.main import app
+from app.database.db import init_db
+from app.services.match_service import init_gallery_index
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_test_environment():

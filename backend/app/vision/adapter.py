@@ -1,9 +1,9 @@
 import numpy as np
 from typing import Dict, Any, List, Optional
-from backend.app.vision.detector import FaceDetector, FaceObject
-from backend.app.vision.alignment import align_face_5point
-from backend.app.vision.quality import assess_face_quality
-from backend.app.vision.embeddings import BaseFaceModel, SFaceModel, DeterministicBaselineModel
+from app.vision.detector import FaceDetector, FaceObject
+from app.vision.alignment import align_face_5point
+from app.vision.quality import assess_face_quality
+from app.vision.embeddings import BaseFaceModel, SFaceModel, DeterministicBaselineModel
 
 class FaceModelAdapter:
     def __init__(self, model_name: str = "sface"):

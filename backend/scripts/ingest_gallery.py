@@ -5,12 +5,12 @@ import cv2
 import numpy as np
 from datetime import datetime
 
-# Ensure repository root is on sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+# Ensure backend directory is on sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from backend.app.database.db import SessionLocal, init_db
-from backend.app.database.models import GalleryParticipant, GalleryImage, GalleryEmbedding
-from backend.app.vision.adapter import vision_adapter
+from app.database.db import SessionLocal, init_db
+from app.database.models import GalleryParticipant, GalleryImage, GalleryEmbedding
+from app.vision.adapter import vision_adapter
 
 def ingest_gallery(
     manifest_path: str = "data/demo_gallery/manifest.json",

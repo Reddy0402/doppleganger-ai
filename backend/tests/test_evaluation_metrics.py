@@ -1,5 +1,5 @@
 import pytest
-from backend.app.evaluation.metrics import (
+from app.evaluation.metrics import (
     precision_at_k,
     recall_at_k,
     average_precision,
