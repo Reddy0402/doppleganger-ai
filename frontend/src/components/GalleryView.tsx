@@ -13,11 +13,17 @@ export const GalleryView: React.FC = () => {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [data, statsData] = await Promise.all([
-        fetchGallery(1, 100),
+      const PAGE_SIZE = 100;
+      const [first, statsData] = await Promise.all([
+        fetchGallery(1, PAGE_SIZE),
         fetchGalleryStats().catch(() => null)
       ]);
-      setParticipants(data.participants || []);
+      // Pull the remaining pages so every participant is shown, not just the first page
+      const pageCount = Math.ceil(first.total_participants / PAGE_SIZE);
+      const rest = await Promise.all(
+        Array.from({ length: Math.max(0, pageCount - 1) }, (_, i) => fetchGallery(i + 2, PAGE_SIZE))
+      );
+      setParticipants([first, ...rest].flatMap((page) => page.participants || []));
       if (statsData) setStats(statsData);
     } catch (e) {
       console.error(e);
@@ -132,6 +138,7 @@ export const GalleryView: React.FC = () => {
                       <img
                         src={primaryImg.image_url}
                         alt={p.display_name}
+                        loading="lazy"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
                     ) : (

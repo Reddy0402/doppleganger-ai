@@ -42,6 +42,8 @@ class GalleryRecord:
 class VectorIndex:
     def __init__(self, dimension: int = 128, use_faiss: bool = True):
         self.dimension = dimension
+        # Embedding model that produced the stored vectors; queries must come from the same model
+        self.model_name: Optional[str] = None
         self.use_faiss = use_faiss and HAS_FAISS
         self.records: List[GalleryRecord] = []
         self.matrix: Optional[np.ndarray] = None
@@ -53,11 +55,16 @@ class VectorIndex:
         self.faiss_index = None
 
     def add_records(self, records: List[GalleryRecord]):
+        seen_ids = {r.image_id for r in self.records}
         for r in records:
             if r.embedding.shape[0] != self.dimension:
                 raise ValueError(
                     f"Vector dimension mismatch: expected {self.dimension}, got {r.embedding.shape[0]}"
                 )
+            # image_id is the only key linking a vector to its image, so it must be unique
+            if r.image_id in seen_ids:
+                raise ValueError(f"Duplicate gallery image_id: {r.image_id}")
+            seen_ids.add(r.image_id)
             self.records.append(r)
         self.rebuild_index()
 

@@ -93,7 +93,7 @@ export const TopCandidatesGrid: React.FC<TopCandidatesGridProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {displayed.map((c) => (
           <div
-            key={c.participant_id}
+            key={c.image_id}
             className="glass-panel rounded-2xl border border-white/10 p-4 hover:border-violet-500/40 transition-all flex flex-col justify-between"
           >
             <div>

@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="bg-transparent text-slate-200 font-medium focus:outline-none cursor-pointer"
             >
               <option value="sface" className="bg-midnight-900 text-slate-100">
-                SFace (ArcFace 128D)
+                SFace (OpenCV 128D)
               </option>
               <option value="deterministic" className="bg-midnight-900 text-slate-100">
                 Spatial Baseline (128D)

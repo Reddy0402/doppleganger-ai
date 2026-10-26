@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Navbar } from "./components/Navbar";
 import { LandingHero } from "./components/LandingHero";
 import { UploadZone } from "./components/UploadZone";
@@ -23,8 +23,11 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [matchResponse, setMatchResponse] = useState<MatchResponse | null>(null);
   const [userImageSrc, setUserImageSrc] = useState<string | undefined>(undefined);
-  const [lastUploadedFile, setLastUploadedFile] = useState<File | undefined>(undefined);
-  const [lastImageBase64, setLastImageBase64] = useState<string | undefined>(undefined);
+  // The single query source for the current search (a file OR a camera data URL, never both).
+  // Kept in a ref so re-analysis (e.g. multi-face selection) reuses it without a stale closure.
+  const lastSourceRef = useRef<{ file?: File; imageBase64?: string }>({});
+  // Increments on every search so an older, slower response can't overwrite a newer one
+  const searchSeqRef = useRef(0);
 
   const [multipleFacesData, setMultipleFacesData] = useState<{
     faces: FaceBox[];
@@ -74,27 +77,39 @@ export function App() {
   const [maxDisplayCount, setMaxDisplayCount] = useState<number>(20);
 
   const handleAnalyze = async (file?: File, imageBase64?: string, selectedFaceIndex?: number) => {
+    const requestId = ++searchSeqRef.current;
+    const isLatest = () => requestId === searchSeqRef.current;
+
+    // A new upload or capture replaces the query source; re-analysis keeps the previous one
+    if (file) {
+      lastSourceRef.current = { file };
+    } else if (imageBase64) {
+      lastSourceRef.current = { imageBase64 };
+    }
+    const source = lastSourceRef.current;
+
     setIsLoading(true);
     setMultipleFacesData(null);
+    // Clear the previous query's results so they can't be mistaken for this search's
+    setMatchResponse(null);
 
     // Save image source for preview
     if (file) {
-      setLastUploadedFile(file);
       setUserImageSrc(URL.createObjectURL(file));
     } else if (imageBase64) {
-      setLastImageBase64(imageBase64);
       setUserImageSrc(imageBase64);
     }
 
     try {
       const resp = await findMatches({
-        file: file || lastUploadedFile,
-        imageBase64: imageBase64 || lastImageBase64,
+        file: source.file,
+        imageBase64: source.file ? undefined : source.imageBase64,
         topK: maxDisplayCount,
         minThreshold: minThreshold,
         selectedFaceIndex,
         aggregationPolicy: "max",
       });
+      if (!isLatest()) return;
 
       if (resp.status === "MULTIPLE_FACES_DETECTED" && resp.detected_faces && resp.detected_faces.length > 1) {
         setMultipleFacesData({
@@ -119,9 +134,9 @@ export function App() {
         showToast(resp.message || "Could not complete match analysis", "error");
       }
     } catch (e: any) {
-      showToast(e.message || "Analysis error occurred", "error");
+      if (isLatest()) showToast(e.message || "Analysis error occurred", "error");
     } finally {
-      setIsLoading(false);
+      if (isLatest()) setIsLoading(false);
     }
   };
 
@@ -133,8 +148,8 @@ export function App() {
     }
     setMatchResponse(null);
     setUserImageSrc(undefined);
-    setLastUploadedFile(undefined);
-    setLastImageBase64(undefined);
+    lastSourceRef.current = {};
+    searchSeqRef.current++; // discard any in-flight search response
     setMultipleFacesData(null);
     showToast("Session upload purged immediately from memory.");
   };
@@ -142,8 +157,8 @@ export function App() {
   const handleRetry = () => {
     setMatchResponse(null);
     setUserImageSrc(undefined);
-    setLastUploadedFile(undefined);
-    setLastImageBase64(undefined);
+    lastSourceRef.current = {};
+    searchSeqRef.current++; // discard any in-flight search response
     setMultipleFacesData(null);
     document.getElementById("upload-section")?.scrollIntoView({ behavior: "smooth" });
   };

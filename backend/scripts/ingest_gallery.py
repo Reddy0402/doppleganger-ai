@@ -24,6 +24,13 @@ def ingest_gallery(
     init_db()
     db = SessionLocal()
 
+    # The index is rebuilt from scratch below, so drop stale gallery rows first
+    # (otherwise old participants/images from earlier runs inflate the stats)
+    db.query(GalleryEmbedding).delete()
+    db.query(GalleryImage).delete()
+    db.query(GalleryParticipant).delete()
+    db.commit()
+
     participants = []
     if os.path.exists(manifest_path):
         with open(manifest_path, "r", encoding="utf-8") as f:
@@ -48,10 +55,11 @@ def ingest_gallery(
     if discovered_files:
         print(f"[INFO] Discovered {len(discovered_files)} additional images outside manifest. Appending...")
         for fname in discovered_files:
+            # One participant per image: the full stem keeps IDs unique across files
             clean_name = os.path.splitext(os.path.basename(fname))[0]
             parts = clean_name.split("_")
-            p_id = f"p_{parts[0]}_{parts[1]}" if len(parts) >= 2 else f"p_{clean_name}"
-            display_name = f"{parts[0].capitalize()} #{parts[1]}" if len(parts) >= 2 else clean_name.capitalize()
+            p_id = f"p_{clean_name}"
+            display_name = f"{parts[0].capitalize()} #{parts[-1]}" if len(parts) >= 2 else clean_name.capitalize()
             participants.append({
                 "id": p_id,
                 "display_name": display_name,

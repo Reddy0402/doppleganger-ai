@@ -2,6 +2,8 @@ import os
 import time
 import json
 import uuid
+import hashlib
+import logging
 import numpy as np
 from typing import Dict, Any, Optional
 
@@ -10,6 +12,8 @@ from app.core.security import validate_image_file, load_and_preprocess_image, ep
 from app.vision.adapter import vision_adapter
 from app.retrieval.vector_index import gallery_index, GalleryRecord
 from app.services.genai_service import generate_fun_caption
+
+logger = logging.getLogger("doppelganger.match")
 
 def init_gallery_index():
     """
@@ -47,6 +51,7 @@ def init_gallery_index():
 
         gallery_index.clear()
         gallery_index.dimension = model_info["dimension"]
+        gallery_index.model_name = meta.get("model_name", model_info["name"])
         gallery_index.add_records(records)
         print(f"[OK] Gallery index initialized with {len(records)} portraits.")
     except Exception as e:
@@ -103,11 +108,36 @@ def process_match_request(
             "matches": []
         }
 
+    # Query and gallery vectors are only comparable when produced by the same model
+    if gallery_index.model_name and gallery_index.model_name != model_info["name"]:
+        logger.error("match req=%s model mismatch: query=%s index=%s", req_id, model_info["name"], gallery_index.model_name)
+        return {
+            "request_id": req_id,
+            "status": "MODEL_MISMATCH",
+            "message": f"The active model ({model_info['name']}) does not match the gallery index ({gallery_index.model_name}). Run reindex after switching models.",
+            "model_name": model_info["name"],
+            "model_version": model_info["version"],
+            "dimension": model_info["dimension"],
+            "execution_latency_ms": round((time.perf_counter() - t0) * 1000.0, 2),
+            "matches": []
+        }
+
     # 4. Vector Search against Complete Authorized Gallery
     query_emb = proc["embedding"]
     query_sub = proc["subfeatures"]
     quality_info = proc["quality"]
-    
+
+    # Reject unusable query vectors before they reach the index
+    if query_emb.shape != (model_info["dimension"],) or not np.all(np.isfinite(query_emb)) or np.linalg.norm(query_emb) < 1e-12:
+        logger.error("match req=%s invalid query embedding shape=%s", req_id, query_emb.shape)
+        return {
+            "request_id": req_id,
+            "status": "PROCESSING_ERROR",
+            "message": "Could not compute a valid face embedding for this photo. Please try another image.",
+            "execution_latency_ms": round((time.perf_counter() - t0) * 1000.0, 2),
+            "matches": []
+        }
+
     t_search_0 = time.perf_counter()
     search_output = gallery_index.search(
         query_vec=query_emb,
@@ -119,6 +149,23 @@ def process_match_request(
     search_duration_ms = round((time.perf_counter() - t_search_0) * 1000.0, 2)
 
     matches = search_output["matches"]
+
+    # Diagnostics: no embeddings, images, or raw personal data are logged
+    logger.info(
+        "match req=%s query_sha256=%s faces=%d model=%s dim=%d query_norm=%.4f index_size=%d "
+        "qualifying=%d returned=%d search_ms=%.2f top=%s",
+        req_id,
+        hashlib.sha256(file_bytes).hexdigest()[:16],
+        proc["num_faces"],
+        model_info["name"],
+        model_info["dimension"],
+        float(np.linalg.norm(query_emb)),
+        search_output["total_portraits_indexed"],
+        search_output["total_qualifying"],
+        len(matches),
+        search_duration_ms,
+        [(m["image_id"], m["similarity_score"]) for m in matches[:5]],
+    )
 
     # Enrich with fun captions
     for m in matches:

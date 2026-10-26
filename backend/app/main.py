@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +9,9 @@ from app.core.security import ephemeral_manager
 from app.database.db import init_db
 from app.services.match_service import init_gallery_index
 from app.api.routes import router as api_router
+
+# Surface per-request diagnostics (doppelganger.match) in the server console
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
