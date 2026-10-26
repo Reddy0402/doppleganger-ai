@@ -1,0 +1,204 @@
+{
+  "participants": [
+    {
+      "id": "p_elena",
+      "display_name": "Elena Vance",
+      "bio_caption": "Architectural designer, sharp jawline and warm hazel eyes.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_elena_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_elena_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_marcus",
+      "display_name": "Marcus Thorne",
+      "bio_caption": "Acoustic sound producer, defined facial structure with warm brown eyes.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_marcus_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_marcus_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_aisha",
+      "display_name": "Aisha Patel",
+      "bio_caption": "Biochemist researcher, gentle smile and distinct orbital symmetry.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_aisha_1.jpg",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "p_kai",
+      "display_name": "Kai Tanaka",
+      "bio_caption": "Industrial designer, prominent cheekbones and focused gaze.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_kai_1.jpg",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "p_clara",
+      "display_name": "Clara Morales",
+      "bio_caption": "Documentary filmmaker, expressive eyes and warm facial contours.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_clara_1.jpg",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "p_devon",
+      "display_name": "Devon Brooks",
+      "bio_caption": "Creative director, balanced facial proportions and bright gaze.",
+      "consent_status": "synthetic_authorized",
+      "source": "Doppelganger Synthetic Portrait Lab",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_devon_1.jpg",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "p_sofia",
+      "display_name": "Sofia Lindqvist",
+      "bio_caption": "Biometric researcher with architectural symmetry and almond hazel eyes.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_sofia_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_sofia_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_leo",
+      "display_name": "Leo Sterling",
+      "bio_caption": "Sound engineer with defined facial contours and warm gaze.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_leo_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_leo_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_priya",
+      "display_name": "Priya Sen",
+      "bio_caption": "Computational geneticist with expressive orbital features.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_priya_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_priya_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_kenji",
+      "display_name": "Kenji Takahashi",
+      "bio_caption": "Product architect with prominent cheekbones and focused expression.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_kenji_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_kenji_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_lucia",
+      "display_name": "Lucia Rossi",
+      "bio_caption": "Visual designer with warm facial structure and classic jawline.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_lucia_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_lucia_2.jpg",
+          "is_primary": false
+        }
+      ]
+    },
+    {
+      "id": "p_jordan",
+      "display_name": "Jordan Taylor",
+      "bio_caption": "Creative director with balanced angular facial proportions.",
+      "consent_status": "synthetic_authorized",
+      "source": "Rathgeb Doppelg\u00e4nger Lab Synthesis",
+      "license": "CC0-1.0",
+      "images": [
+        {
+          "filename": "portrait_jordan_1.jpg",
+          "is_primary": true
+        },
+        {
+          "filename": "portrait_jordan_2.jpg",
+          "is_primary": false
+        }
+      ]
+    }
+  ]
+}

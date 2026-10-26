@@ -1,0 +1,3 @@
+Model,Detector,Dimension,P@1,P@5,R@5,mAP,NDCG@5,Mean Latency (ms),P95 Latency (ms),Stability
+SFace (ArcFace),yunet_2023mar,128,1.0,0.2,1.0,1.0,0.9297,408.63,567.11,1.0
+Spatial Baseline,yunet_2023mar,128,0.0,0.1,0.5,0.125,0.2314,211.87,233.81,1.0

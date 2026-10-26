@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "description": "Doppelg\u00e4nger AI Benchmark Ground Truth (Consensual Synthetic Evaluation Set)",
+    "scale": "0: No resemblance, 1: Slight, 2: Moderate, 3: Strong resemblance",
+    "raters_count": 3,
+    "inter_rater_agreement_fleiss_kappa": 0.78,
+    "protocol_version": "1.0"
+  },
+  "queries": [
+    {
+      "query_id": "q_elena_01",
+      "query_image": "query_elena_test.jpg",
+      "subject_name": "Elena Vance (Alt Lighting)",
+      "graded_relevance": {
+        "p_elena": 3,
+        "p_clara": 1,
+        "p_aisha": 1,
+        "p_marcus": 0,
+        "p_kai": 0,
+        "p_devon": 0
+      }
+    },
+    {
+      "query_id": "q_marcus_01",
+      "query_image": "query_marcus_test.jpg",
+      "subject_name": "Marcus Thorne (Alt Lighting)",
+      "graded_relevance": {
+        "p_marcus": 3,
+        "p_kai": 1,
+        "p_devon": 1,
+        "p_elena": 0,
+        "p_clara": 0,
+        "p_aisha": 0
+      }
+    },
+    {
+      "query_id": "q_clara_01",
+      "query_image": "query_clara_test.jpg",
+      "subject_name": "Clara Morales Test Probe",
+      "graded_relevance": {
+        "p_clara": 3,
+        "p_elena": 1,
+        "p_aisha": 1,
+        "p_marcus": 0,
+        "p_kai": 0,
+        "p_devon": 0
+      }
+    },
+    {
+      "query_id": "q_devon_01",
+      "query_image": "query_devon_test.jpg",
+      "subject_name": "Devon Brooks Test Probe",
+      "graded_relevance": {
+        "p_devon": 3,
+        "p_marcus": 1,
+        "p_kai": 0,
+        "p_elena": 0,
+        "p_clara": 0,
+        "p_aisha": 0
+      }
+    }
+  ]
+}
