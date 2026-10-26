@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X, Shield, Sliders } from "lucide-react";
 import type { MatchCandidate } from "../types";
+import { resolveImageUrl } from "../services/api";
 
 interface SideBySideModalProps {
   candidate: MatchCandidate | null;
@@ -79,7 +80,7 @@ export const SideBySideModal: React.FC<SideBySideModalProps> = ({
 
           {/* Candidate Face */}
           <div className="relative aspect-square rounded-2xl overflow-hidden bg-midnight-950 border border-violet-500/40 shadow-glow">
-            <img src={candidate.image_url} alt={candidate.display_name} className="w-full h-full object-cover" />
+            <img src={resolveImageUrl(candidate.image_url)} alt={candidate.display_name} className="w-full h-full object-cover" />
             
             {showGuides && (
               <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-8 border border-violet-400/20">

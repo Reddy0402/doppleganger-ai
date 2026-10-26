@@ -1,6 +1,14 @@
 import type { MatchResponse, GalleryListResponse, EvaluationSummary } from "../types";
 
-const API_BASE = "/api";
+const API_HOST = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+const API_BASE = `${API_HOST}/api`;
+
+export function resolveImageUrl(url?: string): string {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
+  if (url.startsWith("/")) return `${API_HOST}${url}`;
+  return `${API_BASE}/${url}`;
+}
 
 export async function fetchHealth() {
   const res = await fetch(`${API_BASE}/health`);

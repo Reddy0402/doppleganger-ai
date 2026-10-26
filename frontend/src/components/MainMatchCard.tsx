@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Sparkles, Info, Share2, Split, Trash2, RotateCcw, Compass } from "lucide-react";
 import type { MatchCandidate, QualityAssessment, SearchStats } from "../types";
+import { resolveImageUrl } from "../services/api";
 
 interface MainMatchCardProps {
   topMatch: MatchCandidate;
@@ -197,7 +198,7 @@ export const MainMatchCard: React.FC<MainMatchCardProps> = ({
           {/* Doppelgänger Match */}
           <div className="relative rounded-2xl overflow-hidden bg-midnight-950 border border-violet-500/40 group aspect-square shadow-glow">
             <img
-              src={topMatch.image_url}
+              src={resolveImageUrl(topMatch.image_url)}
               alt={topMatch.display_name}
               className="w-full h-full object-cover"
             />

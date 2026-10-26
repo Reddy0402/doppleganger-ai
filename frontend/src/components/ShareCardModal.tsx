@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { X, Download, Sparkles } from "lucide-react";
 import type { MatchCandidate } from "../types";
+import { resolveImageUrl } from "../services/api";
 
 interface ShareCardModalProps {
   candidate: MatchCandidate | null;
@@ -88,7 +89,8 @@ export const ShareCardModal: React.FC<ShareCardModalProps> = ({
     // Load Candidate Image
     const candImg = new Image();
     candImg.crossOrigin = "anonymous";
-    candImg.src = candidate.image_url;
+    candImg.crossOrigin = "anonymous";
+    candImg.src = resolveImageUrl(candidate.image_url);
     candImg.onload = () => {
       ctx.save();
       ctx.beginPath();

@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: doppleganger-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: OPENBLAS_NUM_THREADS
+        value: "1"
+      - key: ALLOWED_ORIGINS
+        value: "https://doppleganger-ai.vercel.app,http://localhost:5173,http://localhost:3000"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Database, Search, ShieldCheck, User, RefreshCw, Layers } from "lucide-react";
 import type { GalleryParticipant } from "../types";
-import { fetchGallery, fetchGalleryStats, reindexGallery } from "../services/api";
+import { fetchGallery, fetchGalleryStats, reindexGallery, resolveImageUrl } from "../services/api";
 
 export const GalleryView: React.FC = () => {
   const [participants, setParticipants] = useState<GalleryParticipant[]>([]);
@@ -136,7 +136,7 @@ export const GalleryView: React.FC = () => {
                   <div className="relative aspect-square overflow-hidden bg-slate-900">
                     {primaryImg ? (
                       <img
-                        src={primaryImg.image_url}
+                        src={resolveImageUrl(primaryImg.image_url)}
                         alt={p.display_name}
                         loading="lazy"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"

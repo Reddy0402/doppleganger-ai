@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Split, Share2, Filter, ArrowUpDown } from "lucide-react";
 import type { MatchCandidate } from "../types";
+import { resolveImageUrl } from "../services/api";
 
 interface TopCandidatesGridProps {
   candidates: MatchCandidate[];
@@ -99,7 +100,7 @@ export const TopCandidatesGrid: React.FC<TopCandidatesGridProps> = ({
             <div>
               <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-900 mb-3">
                 <img
-                  src={c.image_url}
+                  src={resolveImageUrl(c.image_url)}
                   alt={c.display_name}
                   className="w-full h-full object-cover"
                 />
