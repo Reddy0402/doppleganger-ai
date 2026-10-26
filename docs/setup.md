@@ -22,7 +22,7 @@ python backend/scripts/download_models.py
 python backend/scripts/ingest_gallery.py
 
 # Launch FastAPI server
-python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
+PYTHONPATH=backend python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 The API docs will be available at: `http://127.0.0.1:8000/docs`

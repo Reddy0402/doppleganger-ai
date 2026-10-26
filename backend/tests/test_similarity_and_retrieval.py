@@ -1,12 +1,12 @@
 import pytest
 import numpy as np
-from backend.app.retrieval.similarity import (
+from app.retrieval.similarity import (
     cosine_similarity,
     batch_cosine_similarity,
     calibrate_resemblance_score
 )
-from backend.app.retrieval.vector_index import VectorIndex, GalleryRecord
-from backend.app.vision.embeddings import normalize_l2
+from app.retrieval.vector_index import VectorIndex, GalleryRecord
+from app.vision.embeddings import normalize_l2
 
 def test_normalize_l2_unit_length():
     v = np.array([3.0, 4.0], dtype=np.float32)

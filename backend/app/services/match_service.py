@@ -5,11 +5,11 @@ import uuid
 import numpy as np
 from typing import Dict, Any, Optional
 
-from backend.app.core.config import settings
-from backend.app.core.security import validate_image_file, load_and_preprocess_image, ephemeral_manager
-from backend.app.vision.adapter import vision_adapter
-from backend.app.retrieval.vector_index import gallery_index, GalleryRecord
-from backend.app.services.genai_service import generate_fun_caption
+from app.core.config import settings
+from app.core.security import validate_image_file, load_and_preprocess_image, ephemeral_manager
+from app.vision.adapter import vision_adapter
+from app.retrieval.vector_index import gallery_index, GalleryRecord
+from app.services.genai_service import generate_fun_caption
 
 def init_gallery_index():
     """
